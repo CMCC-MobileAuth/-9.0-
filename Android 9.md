@@ -42,10 +42,10 @@ jar包集成方式：
 如果使用android studio进行开发，在app的主module的build.gradle中加入依赖配置：
 
 ```
-implementation 'com.cmictop.sso:sdk:9.0.5'
+implementation 'com.cmictop.sso:sdk:9.0.4'
 ```
 
-注：其中9.0.5是一键登录对应的SDK的版本号
+注：其中9.0.4是一键登录对应的SDK的版本号
 
 
 **第三步：开始使用移动认证SDK**
