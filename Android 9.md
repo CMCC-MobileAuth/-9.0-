@@ -124,7 +124,8 @@ mListener = new TokenListener() {
 
 ```java
 -dontwarn com.cmic.sso.sdk.**
--keep public class com.cmic.sso.sdk.*{;}
+-keep class com.cmic.sso.sdk.** {*;}
+
 ```
 
 <div STYLE="page-break-after: always;"></div>
