@@ -301,7 +301,6 @@ TokenListener的参数JSONObject，含义如下：
 | authType    | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
 | authTypeDes | String | 登录方式描述                                                 |
 | token       | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| openId      | String | 成功时返回：用户身份唯一标识。（uaAuthActivity传入null时，不返回） |
 
 ## 2.6. 获取手机号码（服务端）
 
@@ -420,7 +419,6 @@ TokenListener的参数JSONObject，含义如下：
 | authType    | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
 | authTypeDes | String | 登录方式描述                                                 |
 | token       | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| openId      | String | 成功时返回：用户身份唯一标识。                               |
 
 **请求示例**
 
