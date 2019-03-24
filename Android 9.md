@@ -232,21 +232,6 @@ mAuthnHelper.getPhoneInfo(APP_ID, APP_KEY, mListener);
 
 7、对于未遵照1~4设计要求，或通过技术手段故意屏蔽不弹出授权页面但获得调用接口凭证token的行为，能力提供方有权限制APP一键登录取号能力的使用，待整改后再恢复提供服务。
 
-### 2.4.2. 构建授权页面
-
-授权登录页面由开发者设计和构建，在构建前，需调用SDK提供的授权页埋点记录方法。
-
-**埋点记录方法原型**
-
-```java
-public void recordAuthEvent(String mAppId)
-```
-
-**参数说明**
-
-| 参数   | 类型   | 说明        |
-| :----- | :----- | :---------- |
-| mAppId | String | 应用的AppID |
 
 ## 2.5. 授权请求
 
@@ -306,9 +291,39 @@ TokenListener的参数JSONObject，含义如下：
 
 详细请开发者查看移动认证服务端接口文档说明。
 
+## 2.7. 本机号码校验请求token
+
+开发者可以在应用内部任意页面调用本方法，获取本机号码校验的接口调用凭证（token）
+
+**本机号码校验方法原型**
+
+```java
+public void mobileAuth(final String appId, 
+                       final String appKey, 
+                       final TokenListener listener)
+```
+
+**请求参数说明：**
+
+| 参数        | 类型          | 说明                                                         |
+| :---------- | :------------ | :----------------------------------------------------------- |
+| appId       | String        | 应用的AppID                                                  |
+| appkey      | String        | 应用密钥                                                     |
+| listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
+
+**响应参数：**
+
+OnGetTokenComplete的参数JSONObject，含义如下：
+
+| 字段           | 类型   | 含义                                                         |
+| -------------- | ------ | ------------------------------------------------------------ |
+| resultCode     | Int    | 接口返回码，“103000”为成功。        |
+| authType       | Int    | 登录类型。                                                   |
+| authTypeDes    | String | 登录类型中文描述。                                           |
+| token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 
-## 2.7. 本机号码校验（服务端）
+## 2.8. 本机号码校验（服务端）
 
 详细请开发者查看移动认证服务端接口文档说明。
 
@@ -495,37 +510,6 @@ public JSONObject getNetworkType(Context context)
 ```java
 public void delScrip()
 ```
-
-## 3.7. 本机号码校验
-
-开发者可以在应用内部任意页面调用本方法，获取本机号码校验的接口调用凭证（token）
-
-**本机号码校验方法原型**
-
-```java
-public void mobileAuth(final String appId, 
-                       final String appKey, 
-                       final TokenListener listener)
-```
-
-**请求参数说明：**
-
-| 参数        | 类型          | 说明                                                         |
-| :---------- | :------------ | :----------------------------------------------------------- |
-| appId       | String        | 应用的AppID                                                  |
-| appkey      | String        | 应用密钥                                                     |
-| listener    | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
-
-**响应参数：**
-
-OnGetTokenComplete的参数JSONObject，含义如下：
-
-| 字段           | 类型   | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。        |
-| authType       | Int    | 登录类型。                                                   |
-| authTypeDes    | String | 登录类型中文描述。                                           |
-| token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 <div STYLE="page-break-after: always;"></div>
 
