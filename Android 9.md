@@ -505,8 +505,7 @@ public void delScrip()
 ```java
 public void mobileAuth(final String appId, 
                        final String appKey, 
-                       final TokenListener listener,
-                       final int requestCode)
+                       final TokenListener listener)
 ```
 
 **请求参数说明：**
@@ -523,7 +522,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 | 字段           | 类型   | 含义                                                         |
 | -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。具体响应码见5.1 SDK返回码        |
+| resultCode     | Int    | 接口返回码，“103000”为成功。        |
 | authType       | Int    | 登录类型。                                                   |
 | authTypeDes    | String | 登录类型中文描述。                                           |
 | token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
