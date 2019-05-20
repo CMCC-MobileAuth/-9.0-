@@ -42,10 +42,10 @@ jar包集成方式：
 如果使用android studio进行开发，在app的主module的build.gradle中加入依赖配置：
 
 ```
-implementation 'com.cmictop.sso:sdk:9.0.4'
+implementation 'com.cmictop.sso:sdk:x.x.x'
 ```
 
-注：其中9.0.4是一键登录对应的SDK的版本号
+注：其中x.x.x是一键登录对应的SDK的版本号，例如9.0.7
 
 
 **第三步：开始使用移动认证SDK**
@@ -86,17 +86,24 @@ public void onCreate(Bundle savedInstanceState) {
     mAuthnHelper = AuthnHelper.getInstance(mContext);
     }
 ```
-**方法原型：**
+**方法原型1：**（开发者默认使用该原型初始化SDK）
 
 ```java
-public static AuthnHelper getInstance(Context context)
+public static AuthnHelper getInstance(Context context) 
+```
+
+**方法原型2：**
+
+```
+public static AuthnHelper getInstance(Context context, String encrypType) 
 ```
 
 **参数说明：**
 
-| 参数    | 类型    | 说明                                               |
-| ------- | ------- | -------------------------------------------------- |
-| context | Context | 调用者的上下文环境，其中activity中this即可以代表。 |
+| 参数       | 类型    | 说明                                               |
+| ---------- | ------- | -------------------------------------------------- |
+| context    | Context | 调用者的上下文环境，其中activity中this即可以代表。 |
+| encrypType | string  | 暂时不传                                           |
 
 **[3] 实现回调。**
 
@@ -315,12 +322,12 @@ public void mobileAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段           | 类型   | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。        |
-| authType       | Int    | 登录类型。                                                   |
-| authTypeDes    | String | 登录类型中文描述。                                           |
-| token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| 字段        | 类型   | 含义                                                         |
+| ----------- | ------ | ------------------------------------------------------------ |
+| resultCode  | String | 接口返回码，“103000”为成功。                                 |
+| authType    | String | 登录类型。                                                   |
+| authTypeDes | String | 登录类型中文描述。                                           |
+| token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 
 ## 2.8. 本机号码校验（服务端）
@@ -461,14 +468,14 @@ mListener = new TokenListener() {
 **原型**
 
 ```java
-public void setTimeOut(long timeOut)
+public void setOverTime(long overTime)
 ```
 
 **请求参数**
 
-| 参数    | 类型 | 说明                       |
-| ------- | ---- | -------------------------- |
-| timeOut | long | 设置超时时间（单位：毫秒） |
+| 参数     | 类型 | 说明                       |
+| -------- | ---- | -------------------------- |
+| overTime | long | 设置超时时间（单位：毫秒） |
 
 **响应参数**
 
@@ -535,12 +542,12 @@ public void mobileAuth(final String appId,
 
 OnGetTokenComplete的参数JSONObject，含义如下：
 
-| 字段           | 类型   | 含义                                                         |
-| -------------- | ------ | ------------------------------------------------------------ |
-| resultCode     | Int    | 接口返回码，“103000”为成功。        |
-| authType       | Int    | 登录类型。                                                   |
-| authTypeDes    | String | 登录类型中文描述。                                           |
-| token          | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| 字段        | 类型   | 含义                                                         |
+| ----------- | ------ | ------------------------------------------------------------ |
+| resultCode  | String | 接口返回码，“103000”为成功。                                 |
+| authType    | String | 登录类型。                                                   |
+| authTypeDes | String | 登录类型中文描述。                                           |
+| token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 
 
