@@ -42,7 +42,11 @@ jar包集成方式：
 如果使用android studio进行开发，在app的主module的build.gradle中加入依赖配置：
 
 ```
+<<<<<<< HEAD
 implementation 'com.cmictop.sso:sdk:x.x.x'
+=======
+implementation 'com.cmictop.sso:sdk:9.0.6.1'（对应哪个版本，则只需将9.0.6.1改为对应版本号）
+>>>>>>> 32903fc0bd30937a82127ac9e77ec3f1c1be4052
 ```
 
 注：其中x.x.x是一键登录对应的SDK的版本号，例如9.0.7
