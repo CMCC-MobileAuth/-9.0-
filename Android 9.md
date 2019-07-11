@@ -4,9 +4,9 @@ sdk技术问题沟通QQ群：609994083</br>
 
 **注意事项：**
 
-1. **认证取号服务必须打开蜂窝数据流量并且手机操作系统给予应用蜂窝数据权限才能使用**
+1. **一键登录服务必须打开蜂窝数据流量并且手机操作系统给予应用蜂窝数据权限才能使用**
 2. **取号请求过程需要消耗用户少量数据流量（国外漫游时可能会产生额外的费用）**
-3. **认证取号服务目前支持中国移动2/3/4G和中国电信4G**
+3. **一键登录服务目前支持中国移动2/3/4G（2,3G因为无线网络环境问题，时延和成功率会比4G低） 和中国电信4G（如有更新会在技术沟通QQ群上通知）**
 
 ## 1.1. 接入流程
 
@@ -39,31 +39,35 @@ jar包集成方式：
 1. 在Eclipse/AS中建立你的工程。 
 2. 将`*.jar`拷贝到工程的libs目录下，如没有该目录，可新建。
 
+
+
+远程依赖方式：
+
 如果使用android studio进行开发，在app的主module的build.gradle中加入依赖配置：
 
-```
-<<<<<<< HEAD
+```java
 implementation 'com.cmictop.sso:sdk:x.x.x'
-=======
-implementation 'com.cmictop.sso:sdk:9.0.6.1'（对应哪个版本，则只需将9.0.6.1改为对应版本号）
->>>>>>> 32903fc0bd30937a82127ac9e77ec3f1c1be4052
 ```
 
 注：其中x.x.x是一键登录对应的SDK的版本号，例如9.0.7
-
 
 **第三步：开始使用移动认证SDK**
 
 **[1] AndroidManifest.xml设置**
 
-添加必要的权限支持: 
+必要的权限: 
 
 ```java
 <uses-permission android:name="android.permission.INTERNET" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+```
+
+建议的权限：强烈建议开发者申请本权限，本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。
+
+```java
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 ```
 
 权限说明：
@@ -98,7 +102,7 @@ public static AuthnHelper getInstance(Context context)
 
 **方法原型2：**
 
-```
+```java
 public static AuthnHelper getInstance(Context context, String encrypType) 
 ```
 
@@ -136,11 +140,9 @@ mListener = new TokenListener() {
 ```java
 -dontwarn com.cmic.sso.sdk.**
 -keep class com.cmic.sso.sdk.** {*;}
-
 ```
 
 <div STYLE="page-break-after: always;"></div>
-
 # 2. 一键登录&本机号码校验
 
 ## 2.1. 准备工作
@@ -175,7 +177,7 @@ public void getPhoneInfo(final String appId,
 | 参数     | 类型          | 说明                                                         |
 | :------- | :------------ | :----------------------------------------------------------- |
 | appId    | String        | 应用的AppID，在开发者社区创建应用时获取                      |
-| appkey   | String        | 应用密钥，在开发者社区创建应用时获取                         |
+| appKey   | String        | 应用密钥，在开发者社区创建应用时获取                         |
 | listener | TokenListener | TokenListener为回调监听器，是一个java接口，需要调用者自己实现；TokenListener是接口中的认证登录token回调接口，OnGetTokenComplete是该接口中唯一的抽象方法，即void OnGetTokenComplete(JSONObject  jsonobj) |
 
 **返回说明：**
@@ -188,13 +190,9 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
 
-**示例代码**
+**示例代码：**
 
 ```java
-/***
-判断和获取READ_PHONE_STATE权限逻辑
-***/   
-
 //创建AuthnHelper实例
 public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -306,6 +304,8 @@ TokenListener的参数JSONObject，含义如下：
 
 开发者可以在应用内部任意页面调用本方法，获取本机号码校验的接口调用凭证（token）
 
+注意：通过本方法获取到的token，只能访问本机号码校验服务端接口，不能调用获取手机号码接口
+
 **本机号码校验方法原型**
 
 ```java
@@ -381,10 +381,6 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 **请求示例代码**
 
 ```java
-/***
-判断和获取READ_PHONE_STATE权限逻辑
-***/   
-
 //创建AuthnHelper实例
 public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -467,7 +463,9 @@ mListener = new TokenListener() {
 
 ## 3.4. 设置取号超时
 
-设置取号超时时间，默认为8000毫秒
+设置取号超时时间，默认为8000毫秒。
+
+开发者设置取号请求方法（getPhoneInfo）、授权请求方法（loginAuth），本机号码校验请求token方法（mobileAuth）的超时时间。开发者在使用SDK方法前，可以通过本方法设置将要使用的方法的超时时间。
 
 **原型**
 
@@ -516,6 +514,8 @@ public JSONObject getNetworkType(Context context)
 
 开发者取号或者授权成功后，SDK将取号的一个临时凭证缓存在本地，缓存允许用户在未开启蜂窝网络时成功取号。开发者可以使用本方法删除该缓存凭证。
 
+注意：删除临时取号凭证后，下次取号请求将不再使用缓存登录，SDK会再次发起网关请求取号。
+
 **原型**
 
 ```java
@@ -556,7 +556,6 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 
 
 <div STYLE="page-break-after: always;"></div>
-
 # 4. 返回码说明
 
 ## 4.1. SDK返回码
@@ -570,28 +569,26 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 102203 | 输入参数错误                                                 |
 | 102223 | 数据解析异常                                                 |
 | 102508 | 数据网络切换失败                                             |
-| 103102 | 包签名错误                                                   |
-| 103111 | 错误的运营商请求                                             |
+| 103102 | 包签名错误（社区填写的appid和对应的包名包签名必须一致）      |
+| 103111 | 错误的运营商请求（可能是用户正在使用代理或者运营商判断失败导致） |
 | 103119 | appid不存在                                                  |
 | 103211 | 其他错误                                                     |
-| 103412 | 无效的请求                                                   |
+| 103412 | 无效的请求（1.加密方式错误；2.非json格式；3.空请求等）       |
 | 103414 | 参数校验异常                                                 |
-| 103902 | scrip失效                                                    |
+| 103902 | scrip失效（短时间内重复登录）                                |
 | 103911 | token请求过于频繁，10分钟内获取token且未使用的数量不超过30个 |
-| 103273 | 预取号联通重定向（暂不支持联通取号）                             |
+| 105001 | 联通取号失败                                                 |
 | 105002 | 移动取号失败                                                 |
 | 105003 | 电信取号失败                                                 |
-| 105019 | 应用未授权                                                 |
-| 105021 | 已达当天取号限额                                             |
+| 105012 | 不支持电信取号                                               |
+| 105013 | 不支持联通取号                                               |
+| 105019 | 应用未授权（未在开发者社区勾选能力）                         |
+| 105021 | 当天已达取号限额                                             |
 | 105302 | appid不在白名单                                              |
-| 105313 | 非法请求                                                    |
-| 200002 | 手机未安装sim卡                                              |
-| 200005 | 用户未授权（READ_PHONE_STATE）                               |
-| 200010 | 获取imsi失败                                                 |
-| 200023 | 登录超时                                                    |
-| 200025 | 未知错误一般出现在线程捕获异常，请配合异常打印分析             |
-| 200038 | 电信取号接口返回失败                                         |
-| 200039 | 电信取号接口返回失败                                         |
-| 200050 | EOF异常                                                      |
-| 200080 | 本机号码校验仅支持移动手机号	                            |
-| 200082 | 服务器繁忙，请稍后重试	                                      |
+| 105313 | 非法请求                                                     |
+| 200010 | 无法识别sim卡或没有sim卡                                     |
+| 200023 | 请求超时                                                     |
+| 200025 | 未知错误一般出现在线程捕获异常，请配合异常打印分析           |
+| 200050 | EOF异常（跟各省的网关相关）                                  |
+| 200072 | 证书校验异常                                                 |
+| 200082 | 服务器繁忙，请稍后重试                                       |
