@@ -64,11 +64,13 @@ implementation 'com.cmictop.sso:sdk:x.x.x'
 <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 ```
 
-建议的权限：强烈建议开发者申请本权限，本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。
+建议的权限：
 
 ```java
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 ```
+
+<font color="red"><strong>强烈建议开发者申请本权限，本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。</strong></font>
 
 权限说明：
 
@@ -117,7 +119,7 @@ public static AuthnHelper getInstance(Context context, String encrypType)
 
 所有的SDK接口调用，都会传入一个回调，用于接收SDK返回的调用结果。结果以`JsonObject`的形式传递，`TokenListener`的实现示例代码如下：
 
-**注意：在9.0.5以及以后版本，该回调方法会被sdk抛到主线程中调用**
+<font color="red">注意：在9.0.5以及以后版本，该回调方法会被sdk抛到主线程中调用</font>
 
 ```java
 mListener = new TokenListener() {
@@ -154,7 +156,7 @@ mListener = new TokenListener() {
 3. 配置应用服务器的出口ip地址
 4. 配置公钥（如果使用RSA加密方式）
 5. **针对本机号码校验：**勾选本机号码校验短验辅助开关（可选）
-6. **针对本机号码校验：**商务对接签约（未签约应用每个appid每天只能调用1000次）
+6. <font color="red">商务对接签约（未签约应用使用体验版套餐，每个appid每天只能调用1000次，三个月到期）</font>
 
 ## 2.2. 流程说明 
 
@@ -162,7 +164,7 @@ mListener = new TokenListener() {
 
 ## 2.3. 取号请求
 
-本方法用于发起取号请求，SDK完成网络判断、蜂窝数据网络切换等操作并缓存凭证scrip。
+本方法用于发起取号请求，SDK完成网络判断、蜂窝数据网络切换等操作并缓存凭证scrip。<font color="red">缓存允许用户在未开启蜂窝网络时成功取号。</font>
 
 **取号方法原型：**
 
@@ -244,11 +246,9 @@ mAuthnHelper.getPhoneInfo(APP_ID, APP_KEY, mListener);
 
 ## 2.5. 授权请求
 
-取号请求成功后，应用在等待用户授权后，调用授权请求方法，获取取号token。开发者可以使用token通过调用服务端接口获取用户手机号码或者进行本机号码校验。
+取号请求成功后，应用在等待用户授权后，调用授权请求方法，获取取号token。
 
-**如果token用于一键登录，那么遵守授权页面的规范细则（2.4章）**
-
-**如果token用于本机号码校验，不需要按照页面规范设计相关的授权页**
+<font color="red">注意：务必在授权页上得到APP使用者的授权同意才允许调用此授权请求方法！</font>
 
 **请求示例代码：**
 
@@ -289,12 +289,13 @@ public void loginAuth(final String appId,
 
 TokenListener的参数JSONObject，含义如下：
 
-| 参数        | 类型   | 说明                                                         |
-| ----------- | ------ | ------------------------------------------------------------ |
-| resultCode  | String | 接口返回码，“103000”为成功                                   |
-| authType    | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
-| authTypeDes | String | 登录方式描述                                                 |
-| token       | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| 参数          | 类型   | 说明                                                         |
+| ------------- | ------ | ------------------------------------------------------------ |
+| resultCode    | String | 接口返回码，“103000”为成功                                   |
+| authType      | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
+| authTypeDes   | String | 登录方式描述                                                 |
+| securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
+| token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 ## 2.6. 获取手机号码（服务端）
 
@@ -304,7 +305,7 @@ TokenListener的参数JSONObject，含义如下：
 
 开发者可以在应用内部任意页面调用本方法，获取本机号码校验的接口调用凭证（token）
 
-注意：通过本方法获取到的token，只能访问本机号码校验服务端接口，不能调用获取手机号码接口
+注意：通过本方法获取到的token，只能请求<font color="red">本机号码校验服务端接口</font>，不能请求<font color="red">获取手机号码接口</font>
 
 **本机号码校验方法原型**
 
@@ -435,12 +436,13 @@ public void loginAuth(final String appId,
 
 TokenListener的参数JSONObject，含义如下：
 
-| 参数        | 类型   | 说明                                                         |
-| ----------- | ------ | ------------------------------------------------------------ |
-| resultCode  | String | 接口返回码，“103000”为成功                                   |
-| authType    | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
-| authTypeDes | String | 登录方式描述                                                 |
-| token       | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| 参数          | 类型   | 说明                                                         |
+| ------------- | ------ | ------------------------------------------------------------ |
+| resultCode    | String | 接口返回码，“103000”为成功                                   |
+| authType      | String | 登录方式：1：WIFI下网关鉴权</br>2：网关鉴权</br>3：其他      |
+| authTypeDes   | String | 登录方式描述                                                 |
+| securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
+| token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
 
 **请求示例**
 
@@ -512,9 +514,11 @@ public JSONObject getNetworkType(Context context)
 
 ## 3.6. 删除临时取号凭证
 
-开发者取号或者授权成功后，SDK将取号的一个临时凭证缓存在本地，缓存允许用户在未开启蜂窝网络时成功取号。开发者可以使用本方法删除该缓存凭证。
+开发者取号或者授权成功后，SDK将取号的一个临时凭证缓存在本地，<font color="red">缓存允许用户在未开启蜂窝网络时成功取号。</font>开发者可以使用本方法删除该缓存凭证。
 
-注意：删除临时取号凭证后，下次取号请求将不再使用缓存登录，SDK会再次发起网关请求取号。
+注意1：删除临时取号凭证后，下次取号请求将不再使用缓存登录，SDK会再次发起网关请求取号。
+
+注意2：用户更换SIM卡或者流量卡变更时，缓存将作废，SDK会再次发起网关请求取号。
 
 **原型**
 
