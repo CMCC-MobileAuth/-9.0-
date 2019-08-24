@@ -160,7 +160,7 @@ mListener = new TokenListener() {
 
 ## 2.2. 流程说明 
 
-![](image/login_process.png)
+![](https://github.com/CMCC-MobileAuth/quick-login-android-9.0/blob/master/image/login_process.png?raw=true)
 
 ## 2.3. 取号请求
 
