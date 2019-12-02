@@ -189,6 +189,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 参数          | 类型   | 说明                          |
 | ------------- | ------ | ----------------------------- |
 | resultCode    | String | 接口返回码，“103000”为成功。  |
+| operatorType | String        | 运营商类型：</br>0.未知；</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
 
@@ -378,6 +379,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 参数          | 类型   | 说明                          |
 | ------------- | ------ | ----------------------------- |
 | resultCode    | String | 接口返回码，“103000”为成功。  |
+| operatorType | String        | 运营商类型：</br>0.未知；</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
 
@@ -511,7 +513,7 @@ public JSONObject getNetworkType(Context context)
 
 | 参数         | 类型   | 说明                                                         |
 | ------------ | ------ | ------------------------------------------------------------ |
-| operatortype | String | 运营商类型：</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
+| operatorType | String        | 运营商类型：</br>0.未知；</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
 | networktype  | String | 网络类型：</br>0.未知；</br>1.流量；</br>2.wifi；</br>3.数据流量+wifi |
 
 ## 3.6. 删除临时取号凭证
