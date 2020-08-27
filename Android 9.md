@@ -190,7 +190,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 参数          | 类型   | 说明                          |
 | ------------- | ------ | ----------------------------- |
 | resultCode    | String | 接口返回码，“103000”为成功。  |
-| operatorType | String        | 运营商类型：</br>未知；</br>移动；</br>2.联通；</br>3.电信 |
+| operatorType | String        | 运营商类型：</br>未知；</br>移动；</br>联通；</br>电信 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
 
