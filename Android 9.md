@@ -193,6 +193,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | operatorType | String        | 运营商类型：</br>未知；</br>移动；</br>联通；</br>电信 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
 
 **示例代码：**
 
@@ -303,6 +304,8 @@ TokenListener的参数JSONObject，含义如下：
 | authTypeDes   | String | 登录方式描述                                                 |
 | securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
 | token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 ## 2.6. 获取手机号码（服务端）
 
@@ -340,6 +343,8 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType    | String | 登录类型。                                                   |
 | authTypeDes | String | 登录类型中文描述。                                           |
 | token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 
 ## 2.8. 本机号码校验（服务端）
@@ -386,6 +391,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | operatorType | String        | 运营商类型：</br>0.未知；</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
 
 **请求示例代码**
 
@@ -451,6 +457,8 @@ TokenListener的参数JSONObject，含义如下：
 | authTypeDes   | String | 登录方式描述                                                 |
 | securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
 | token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 **请求示例**
 
@@ -564,6 +572,8 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType    | String | 登录类型。                                                   |
 | authTypeDes | String | 登录类型中文描述。                                           |
 | token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 
 
