@@ -388,7 +388,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | 参数          | 类型   | 说明                          |
 | ------------- | ------ | ----------------------------- |
 | resultCode    | String | 接口返回码，“103000”为成功。  |
-| operatorType | String        | 运营商类型：</br>0.未知；</br>1.移动流量；</br>2.联通流量；</br>3.电信流量 |
+| operatorType | String        | 运营商类型：</br>未知；</br>移动；</br>联通；</br>电信 |
 | desc          | String | 成功标识，true为成功。        |
 | securityphone | String | 手机号码掩码，如“138XXXX0000” |
 | scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
