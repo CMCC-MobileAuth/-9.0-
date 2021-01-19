@@ -70,7 +70,7 @@ implementation 'com.cmictop.sso:sdk:x.x.x'
 <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 ```
 
-<font color="red"><strong>强烈建议开发者申请本权限，本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。</strong></font>
+<font color="red"><strong>本权限主要用于在双卡情况下，更精准的获取数据流量卡的运营商类型，缺少该权限，存在取号失败概率上升的风险。</strong></font>
 
 权限说明：
 
