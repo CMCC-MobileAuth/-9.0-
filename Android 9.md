@@ -304,7 +304,7 @@ TokenListener的参数JSONObject，含义如下：
 | authTypeDes   | String | 登录方式描述                                                 |
 | securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
 | token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回。注意：电信联通卡调用本方法时，scripExpiresIn=0 |
 | tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 ## 2.6. 获取手机号码（服务端）
@@ -343,7 +343,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType    | String | 登录类型。                                                   |
 | authTypeDes | String | 登录类型中文描述。                                           |
 | token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回。注意：电信联通卡调用本方法时，scripExpiresIn=0 |
 | tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 
@@ -457,7 +457,7 @@ TokenListener的参数JSONObject，含义如下：
 | authTypeDes   | String | 登录方式描述                                                 |
 | securityphone | String | 手机号码掩码，如“138XXXX0000”                                |
 | token         | String | 成功时返回：临时凭证，token有效期2min，一次有效；同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回。注意：电信联通卡调用本方法时，scripExpiresIn=0 |
 | tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 **请求示例**
@@ -572,7 +572,7 @@ OnGetTokenComplete的参数JSONObject，含义如下：
 | authType    | String | 登录类型。                                                   |
 | authTypeDes | String | 登录类型中文描述。                                           |
 | token       | String | 成功返回:临时凭证，token有效期2min，一次有效，同一用户（手机号）10分钟内获取token且未使用的数量不超过30个 |
-| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回 |
+| scripExpiresIn | String | 缓存剩余有效时间，单位，秒，成功时返回。注意：电信联通卡调用本方法时，scripExpiresIn=0 |
 | tokenExpiresIn | String | token剩余有效时间，单位，秒，成功时返回 |
 
 
